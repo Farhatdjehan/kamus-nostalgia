@@ -1,0 +1,104 @@
+.main-screen__dictionary {
+  max-width: 375px;
+  display: flex;
+  height: inherit;
+  flex-direction: column;
+  margin: 0 auto;
+}
+.main-screen__container {
+  padding: 8px 16px;
+  display: flex;
+  flex-direction: column;
+}
+.main-screen__title {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 16px;
+}
+.main-screen__input {
+  margin-bottom: 16px;
+}
+.main-screen__input > input {
+  width: -webkit-fill-available;
+  padding: 16px 12px;
+  border-radius: 32px;
+  border: none;
+}
+.main-screen__selector {
+  /* display: flex; */
+}
+.main-screen__selector-label {
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 12px;
+}
+.main-screen__selector-container {
+  display: flex;
+  margin-bottom: 24px;
+}
+.main-screen__selector-input {
+  width: 45px;
+  height: 45px;
+  margin-right: 12px;
+  background-color: #be2239;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bolder;
+  color: #fff;
+}
+.main-screen__active {
+  background-color: #fff;
+  color: #be2239;
+}
+.main-screen__result {
+  background-color: #fff;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  height: inherit;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+.main-screen__result-label {
+  font-weight: bolder;
+  margin-bottom: 16px;
+}
+.main-screen__result-convert {
+  padding: 16px;
+  background-color: lightgray;
+  border-radius: 24px;
+  height: 100%;
+}
+.main-screen__copy {
+  padding-top: 16px;
+  text-align: end;
+}
+.main-screen__button {
+  padding: 12px 20px;
+  border: none !important;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 600;
+  background-color: #be2239;
+}
+.main-screen__toast {
+  position: absolute;
+  background: #be2239;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  color: white;
+  bottom: 16px;
+  box-shadow: rgb(17 12 46 / 15%) 0px 48px 100px 0px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  width: fit-content;
+  display: none;
+}
