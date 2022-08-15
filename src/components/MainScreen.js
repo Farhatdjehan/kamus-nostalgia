@@ -6,26 +6,17 @@ const MainScreen = () => {
     const convertWordList = ["G", "S", "P"];
     const [text, setText] = useState();
     const [indexSelected, setIndexSelected] = useState(0);
-    const [toast, setToast] = useState(false);
-    const displayValue = convertWordList[indexSelected];
-
-    useEffect(() => { console.log(text), displayValue, convertWordList }, [text, indexSelected])
+    const [languangeType, setLanguangeType] = useState();
 
     useEffect(() => {
+        setLanguangeType(convertWordList[indexSelected].toLowerCase());
+    }, [indexSelected])
 
-    }, [])
-
-    const toastComponent = () => {
-        return (
-            <div>Berhasil!</div>
-        )
-    }
     const handleChange = (e) => {
         let tmp = e.target.value;
         if (tmp !== '') {
             let convertNonVocalAlpha = tmp.split(/[aeiou]/gi);
             let convertVocalAlpha = tmp.match(/[aeiou]/gi);
-            let languange = displayValue.toLowerCase();
             let resultConvert;
 
             if (convertVocalAlpha === undefined || convertVocalAlpha === null) {
@@ -36,7 +27,7 @@ const MainScreen = () => {
                         resultConvert +=
                             convertNonVocalAlpha[i] +
                             convertVocalAlpha[i] +
-                            languange +
+                            languangeType +
                             convertVocalAlpha[i];
                     }
                 }
@@ -54,7 +45,11 @@ const MainScreen = () => {
         let elementToast = document.getElementsByClassName("main-screen__toast");
         elementToast[0].style.display = "block";
         setTimeout(function () { elementToast[0].style.display = elementToast[0].style.display = "none"; }, 2000);
-        // setTimeout(toastComponent, 2000);
+    }
+    const handleReset = () => {
+        let reset = document.getElementById('input');
+        reset.value = "";
+        setText();
     }
     return (
         <div className="main-screen__dictionary">
@@ -63,7 +58,9 @@ const MainScreen = () => {
                     Kamnos
                 </div>
                 <div className="main-screen__input">
-                    <input type="text" id="input" name="input" onChange={handleChange} />
+                    <input type="text" id="input" placeholder="Masukkan Kata" name="input" onChange={handleChange} autoFocus />
+                    {text &&
+                        <div className="main-screen__times" onClick={handleReset}>×</div>}
                 </div>
                 <div className="main-screen__selector">
                     <div className="main-screen__selector-label">

@@ -21,12 +21,21 @@
 }
 .main-screen__input {
   margin-bottom: 16px;
+  position: relative;
 }
 .main-screen__input > input {
   width: -webkit-fill-available;
   padding: 16px 12px;
   border-radius: 32px;
   border: none;
+}
+.main-screen__times {
+  position: absolute;
+  right: 16px;
+  top: 11px;
+  font-size: 18px;
+  font-weight: bold;
+  color: lightgray;
 }
 .main-screen__selector {
   /* display: flex; */
