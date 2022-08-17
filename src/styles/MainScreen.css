@@ -10,6 +10,7 @@
   padding: 8px 16px;
   display: flex;
   flex-direction: column;
+  margin-bottom: 16px;
 }
 .main-screen__title {
   height: 50px;
@@ -19,7 +20,7 @@
   font-weight: bold;
   color: #fff;
   margin-bottom: 24px;
-  margin-top: 24px;
+  margin-top: 12px;
 }
 .main-screen__input {
   margin-bottom: 16px;
