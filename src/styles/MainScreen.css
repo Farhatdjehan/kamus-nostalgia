@@ -102,11 +102,10 @@
 }
 .main-screen__toast {
   position: absolute;
-  background: #be2239;
+  background: rgba(0, 0, 0, 0.64);
   padding: 12px 20px;
   border-radius: 8px;
-  font-weight: 600;
-  color: white;
+  transition: 1s;
   bottom: 16px;
   box-shadow: rgb(17 12 46 / 15%) 0px 48px 100px 0px;
   margin: 0 auto;
@@ -114,4 +113,9 @@
   right: 0;
   width: fit-content;
   display: none;
+}
+.toast-text {
+  font-weight: 600;
+  color: white;
+  opacity: 1;
 }

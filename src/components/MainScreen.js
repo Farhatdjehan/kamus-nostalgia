@@ -5,6 +5,7 @@ import './../styles/MainScreen.css';
 const MainScreen = () => {
     const convertWordList = ["G", "S", "P"];
     const [text, setText] = useState();
+    const [originalText, setOriginalText] = useState();
     const [indexSelected, setIndexSelected] = useState(0);
     const [languangeType, setLanguangeType] = useState();
 
@@ -12,8 +13,36 @@ const MainScreen = () => {
         setLanguangeType(convertWordList[indexSelected].toLowerCase());
     }, [indexSelected])
 
+    useEffect(() => {
+        if (text) {
+            let convertNonVocalAlpha = originalText.split(/[aeiou]/gi);
+            let convertVocalAlpha = originalText.match(/[aeiou]/gi);
+            let resultConvert;
+
+            if (convertVocalAlpha === undefined || convertVocalAlpha === null) {
+                resultConvert += originalText;
+            } else {
+                for (let i = 0; i <= convertNonVocalAlpha.length; i++) {
+                    for (let j = 0; j <= 0; j++) {
+                        resultConvert +=
+                            convertNonVocalAlpha[i] +
+                            convertVocalAlpha[i] +
+                            languangeType +
+                            convertVocalAlpha[i];
+                    }
+                }
+            }
+
+            setText(resultConvert.split('undefined'));
+
+        }
+    }, [indexSelected, originalText, languangeType]);
+
     const handleChange = (e) => {
         let tmp = e.target.value;
+        
+        setOriginalText(tmp);
+
         if (tmp !== '') {
             let convertNonVocalAlpha = tmp.split(/[aeiou]/gi);
             let convertVocalAlpha = tmp.match(/[aeiou]/gi);
@@ -89,7 +118,9 @@ const MainScreen = () => {
                 </div>
             </div>
             <div className="main-screen__toast">
-                Berhasil menyalin!
+                <div className="toast-text">
+                    Berhasil menyalin!
+                </div>
             </div>
         </div>
     );
