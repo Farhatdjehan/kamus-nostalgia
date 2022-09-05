@@ -11,7 +11,9 @@ const MainScreen = () => {
     const [languangeType, setLanguangeType] = useState();
 
     useEffect(() => {
-        setLanguangeType(convertWordList[indexSelected].toLowerCase());
+        if (indexSelected) {
+            setLanguangeType(convertWordList[indexSelected]?.toLowerCase());
+        }
     }, [indexSelected])
 
     useEffect(() => {
