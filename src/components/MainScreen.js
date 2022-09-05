@@ -1,9 +1,10 @@
 /* eslint-disable */
 import React, { useEffect, useState } from "react";
+import { convertWord } from "../helpers/common";
 import './../styles/MainScreen.css';
 
 const MainScreen = () => {
-    const convertWordList = ["G", "S", "P"];
+    const convertWordList = ["G", "S", "P", "U"];
     const [text, setText] = useState();
     const [originalText, setOriginalText] = useState();
     const [indexSelected, setIndexSelected] = useState(0);
@@ -15,59 +16,68 @@ const MainScreen = () => {
 
     useEffect(() => {
         if (text) {
-            let convertNonVocalAlpha = originalText.split(/[aeiou]/gi);
-            let convertVocalAlpha = originalText.match(/[aeiou]/gi);
-            let resultConvert;
 
-            if (convertVocalAlpha === undefined || convertVocalAlpha === null) {
-                resultConvert += originalText;
-            } else {
-                for (let i = 0; i <= convertNonVocalAlpha.length; i++) {
-                    for (let j = 0; j <= 0; j++) {
-                        resultConvert +=
-                            convertNonVocalAlpha[i] +
-                            convertVocalAlpha[i] +
-                            languangeType +
-                            convertVocalAlpha[i];
-                    }
-                }
-            }
+            convertWord(originalText, setText, languangeType);
+            // let convertNonVocalAlpha = originalText.split(/[aeiou]/gi);
+            // let convertVocalAlpha = originalText.match(/[aeiou]/gi);
+            // let resultConvert;
 
-            setText(resultConvert.split('undefined'));
+            // if (convertVocalAlpha === undefined || convertVocalAlpha === null) {
+            //     resultConvert += originalText;
+            // } else {
+            //     for (let i = 0; i <= convertNonVocalAlpha.length; i++) {
+            //         for (let j = 0; j <= 0; j++) {
+            //             resultConvert +=
+            //                 convertNonVocalAlpha[i] +
+            //                 convertVocalAlpha[i] +
+            //                 languangeType +
+            //                 convertVocalAlpha[i];
+            //         }
+            //     }
+            // }
+
+            // setText(resultConvert.split('undefined'));
 
         }
     }, [indexSelected, originalText, languangeType]);
 
     const handleChange = (e) => {
         let tmp = e.target.value;
-        
+
         setOriginalText(tmp);
 
         if (tmp !== '') {
-            let convertNonVocalAlpha = tmp.split(/[aeiou]/gi);
-            let convertVocalAlpha = tmp.match(/[aeiou]/gi);
-            let resultConvert;
+            convertWord(tmp, setText, languangeType);
+            // let convertNonVocalAlpha = tmp.split(/[aeiou]/gi);
+            // let convertVocalAlpha = tmp.match(/[aeiou]/gi);
+            // let resultConvert;
 
-            if (convertVocalAlpha === undefined || convertVocalAlpha === null) {
-                resultConvert += tmp;
-            } else {
-                for (let i = 0; i <= convertNonVocalAlpha.length; i++) {
-                    for (let j = 0; j <= 0; j++) {
-                        resultConvert +=
-                            convertNonVocalAlpha[i] +
-                            convertVocalAlpha[i] +
-                            languangeType +
-                            convertVocalAlpha[i];
-                    }
-                }
-            }
-            setText(resultConvert.split('undefined'));
+            // if (convertVocalAlpha === undefined || convertVocalAlpha === null) {
+            //     resultConvert += tmp;
+            // } else {
+            //     for (let i = 0; i <= convertNonVocalAlpha.length; i++) {
+            //         for (let j = 0; j <= 0; j++) {
+            //             resultConvert +=
+            //                 convertNonVocalAlpha[i] +
+            //                 convertVocalAlpha[i] +
+            //                 languangeType +
+            //                 convertVocalAlpha[i];
+            //         }
+            //     }
+            // }
+            // setText(resultConvert.split('undefined'));
         } else {
             setText();
         }
     }
     const handleSelect = (e) => {
-        setIndexSelected(e.target.id);
+
+        if (e.target.id == "3") {
+            setIndexSelected(0);
+        } else {
+            setIndexSelected(e.target.id);
+        }
+
     }
     const handleCopy = (value) => {
         navigator.clipboard.writeText(value);
@@ -98,9 +108,14 @@ const MainScreen = () => {
                     <div className="main-screen__selector-container">
                         {convertWordList.map((item, index) => {
                             return (
-                                <div id={index} key={index} onClick={handleSelect} className={`main-screen__selector-input ${indexSelected == index && 'main-screen__active'}`}>
-                                    {item}
-                                </div>
+                                <>
+                                    <div id={index} key={index} onClick={handleSelect} className={`${convertWordList.length === index + 1 && 'coming-soon_btn'} main-screen__selector-input ${indexSelected == index && convertWordList.length !== index + 1 && 'main-screen__active'}`}>
+                                        {item}
+                                        {convertWordList.length === index + 1 &&
+                                            <div className="coming-soon__label">SEGERA!</div>
+                                        }
+                                    </div>
+                                </>
                             )
                         })}
                     </div>
