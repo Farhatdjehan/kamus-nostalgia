@@ -11,9 +11,8 @@ const MainScreen = () => {
     const [languangeType, setLanguangeType] = useState();
 
     useEffect(() => {
-        if (indexSelected) {
-            setLanguangeType(convertWordList[indexSelected]?.toLowerCase());
-        }
+        setLanguangeType(convertWordList[indexSelected]?.toLowerCase());
+
     }, [indexSelected])
 
     useEffect(() => {
@@ -50,31 +49,30 @@ const MainScreen = () => {
 
         if (tmp !== '') {
             convertWord(tmp, setText, languangeType);
-            // let convertNonVocalAlpha = tmp.split(/[aeiou]/gi);
-            // let convertVocalAlpha = tmp.match(/[aeiou]/gi);
-            // let resultConvert;
+            let convertNonVocalAlpha = tmp.split(/[aeiou]/gi);
+            let convertVocalAlpha = tmp.match(/[aeiou]/gi);
+            let resultConvert;
 
-            // if (convertVocalAlpha === undefined || convertVocalAlpha === null) {
-            //     resultConvert += tmp;
-            // } else {
-            //     for (let i = 0; i <= convertNonVocalAlpha.length; i++) {
-            //         for (let j = 0; j <= 0; j++) {
-            //             resultConvert +=
-            //                 convertNonVocalAlpha[i] +
-            //                 convertVocalAlpha[i] +
-            //                 languangeType +
-            //                 convertVocalAlpha[i];
-            //         }
-            //     }
-            // }
-            // setText(resultConvert.split('undefined'));
+            if (convertVocalAlpha === undefined || convertVocalAlpha === null) {
+                resultConvert += tmp;
+            } else {
+                for (let i = 0; i <= convertNonVocalAlpha.length; i++) {
+                    for (let j = 0; j <= 0; j++) {
+                        resultConvert +=
+                            convertNonVocalAlpha[i] +
+                            convertVocalAlpha[i] +
+                            languangeType +
+                            convertVocalAlpha[i];
+                    }
+                }
+            }
+            setText(resultConvert.split('undefined'));
         } else {
             setText();
         }
     }
     const handleSelect = (e) => {
-
-        if (e.target.id == "3") {
+        if (e.target.id == "3" || e.target.id == "") {
             setIndexSelected(0);
         } else {
             setIndexSelected(e.target.id);
@@ -113,8 +111,8 @@ const MainScreen = () => {
                                 <>
                                     <div id={index} key={index} onClick={handleSelect} className={`${convertWordList.length === index + 1 && 'coming-soon_btn'} main-screen__selector-input ${indexSelected == index && convertWordList.length !== index + 1 && 'main-screen__active'}`}>
                                         {item}
-                                        {convertWordList.length === index + 1 &&
-                                            <div className="coming-soon__label">SEGERA!</div>
+                                        {convertWordList?.length === index + 1 &&
+                                            <span className="coming-soon__label">SEGERA!</span>
                                         }
                                     </div>
                                 </>
