@@ -24,16 +24,22 @@ export const convertWord = (tmp, setValue, type) => {
     let convertNonVocalAlpha = tmp.split(/[aeiou]/gi);
     let convertVocalAlpha = tmp.match(/[aeiou]/gi);
     let resultConvert;
-
     if (convertVocalAlpha === undefined || convertVocalAlpha === null) {
         resultConvert += tmp;
     } else {
         if (type == "u") {
-            resultConvert +=
-                type +
-                convertNonVocalAlpha[1] + "a" +
-                convertNonVocalAlpha[0] + convertVocalAlpha[1] + "nang";
-
+            let arr;
+            arr = new Array(tmp.slice(0, tmp.length / convertVocalAlpha.length), tmp.slice(tmp.length / convertVocalAlpha.length, tmp.length));
+            let finalResult = arr[1].replace(arr[1].match(/[aeiou]/gi), "a");
+            let typeNang = "nang";
+            let typeNangResult = typeNang.replace(typeNang.match(/[aeiou]/gi), arr[1].match(/[aeiou]/gi));
+            if (tmp.length <= 4) {
+                resultConvert += "u" + tmp.replace(tmp.match(/[aeiou]/gi), "a") + typeNang.replace(typeNang.match(/[aeiou]/gi), tmp.match(/[aeiou]/gi));
+                console.log(arr[1], arr);
+            } else {
+                resultConvert += "u" + finalResult + arr[0] + typeNangResult;
+            }
+            console.log(arr[0], tmp);
         } else {
             for (let i = 0; i <= convertNonVocalAlpha.length; i++) {
                 for (let j = 0; j <= 0; j++) {
@@ -46,5 +52,5 @@ export const convertWord = (tmp, setValue, type) => {
             }
         }
     }
-    setValue(resultConvert.split('undefined'));
+    setValue(resultConvert?.split('undefined'));
 }

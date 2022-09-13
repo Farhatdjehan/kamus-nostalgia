@@ -12,32 +12,16 @@ const MainScreen = () => {
 
     useEffect(() => {
         setLanguangeType(convertWordList[indexSelected]?.toLowerCase());
-
     }, [indexSelected])
+
+    useEffect(() => {
+        console.log(text);
+    }, [text])
 
     useEffect(() => {
         if (text) {
 
             convertWord(originalText, setText, languangeType);
-            // let convertNonVocalAlpha = originalText.split(/[aeiou]/gi);
-            // let convertVocalAlpha = originalText.match(/[aeiou]/gi);
-            // let resultConvert;
-
-            // if (convertVocalAlpha === undefined || convertVocalAlpha === null) {
-            //     resultConvert += originalText;
-            // } else {
-            //     for (let i = 0; i <= convertNonVocalAlpha.length; i++) {
-            //         for (let j = 0; j <= 0; j++) {
-            //             resultConvert +=
-            //                 convertNonVocalAlpha[i] +
-            //                 convertVocalAlpha[i] +
-            //                 languangeType +
-            //                 convertVocalAlpha[i];
-            //         }
-            //     }
-            // }
-
-            // setText(resultConvert.split('undefined'));
 
         }
     }, [indexSelected, originalText, languangeType]);
@@ -46,7 +30,6 @@ const MainScreen = () => {
         let tmp = e.target.value;
 
         setOriginalText(tmp);
-
         if (tmp !== '') {
             convertWord(tmp, setText, languangeType);
         } else {
@@ -54,11 +37,11 @@ const MainScreen = () => {
         }
     }
     const handleSelect = (e) => {
-        if (e.target.id == "3" || e.target.id == "") {
-            setIndexSelected(0);
-        } else {
-            setIndexSelected(e.target.id);
-        }
+        // if (e.target.id == "3" || e.target.id == "") {
+        //     setIndexSelected(0);
+        // } else {
+        setIndexSelected(e.target.id);
+        // }
 
     }
     const handleCopy = (value) => {
@@ -91,11 +74,8 @@ const MainScreen = () => {
                         {convertWordList.map((item, index) => {
                             return (
                                 <>
-                                    <div id={index} key={index} onClick={handleSelect} className={`${convertWordList.length === index + 1 && 'coming-soon_btn'} main-screen__selector-input ${indexSelected == index && convertWordList.length !== index + 1 && 'main-screen__active'}`}>
+                                    <div id={index} key={index} onClick={handleSelect} className={` main-screen__selector-input ${indexSelected == index && 'main-screen__active'}`}>
                                         {item}
-                                        {convertWordList?.length === index + 1 &&
-                                            <span className="coming-soon__label">SEGERA!</span>
-                                        }
                                     </div>
                                 </>
                             )
