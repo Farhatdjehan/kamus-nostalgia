@@ -2,11 +2,13 @@
 import React, { useEffect, useState } from "react";
 import { convertWord } from "../helpers/common";
 import './../styles/MainScreen.css';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const MainScreen = () => {
     const convertWordList = ["G", "S", "P", "U"];
     const [text, setText] = useState();
     const [originalText, setOriginalText] = useState();
+    const [copied, setCopied] = useState(false);
     const [indexSelected, setIndexSelected] = useState(0);
     const [languangeType, setLanguangeType] = useState();
 
@@ -25,6 +27,12 @@ const MainScreen = () => {
 
         }
     }, [indexSelected, originalText, languangeType]);
+
+    useEffect(() => {
+        if (copied) {
+            setTimeout(function () { setCopied(false) }, 2000);
+        }
+    }, [copied])
 
     const handleChange = (e) => {
         let tmp = e.target.value;
@@ -91,14 +99,21 @@ const MainScreen = () => {
                     {text && text[1]}
                 </div>
                 <div className="main-screen__copy">
-                    <button onClick={() => handleCopy(text[1])} className="main-screen__button">Salin</button>
+                    <CopyToClipboard text={text && text[1]}
+                        onCopy={() => setCopied(true)}>
+                        <button className="main-screen__button">Salin</button>
+                    </CopyToClipboard>
+
                 </div>
+                {copied &&
+                    <div className="main-screen__toast">
+                        <div className="toast-text">
+                            Berhasil menyalin!
+                        </div>
+                    </div>
+                }
             </div>
-            <div className="main-screen__toast">
-                <div className="toast-text">
-                    Berhasil menyalin!
-                </div>
-            </div>
+
         </div>
     );
 };
