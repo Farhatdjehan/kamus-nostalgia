@@ -29,7 +29,7 @@ export const convertWord = (tmp, setValue, type) => {
     } else {
         if (type == "u") {
             let arr;
-            arr = new Array(tmp.slice(0, tmp.length / convertVocalAlpha.length), tmp.slice(tmp.length / convertVocalAlpha.length, tmp.length));
+            arr = new Array(tmp.slice(0, Math.round(tmp.length / convertVocalAlpha.length)), tmp.slice(Math.round(tmp.length / convertVocalAlpha.length), tmp.length));
             let finalResult = arr[1].replace(arr[1].match(/[aeiou]/gi), "a");
             let typeNang = "nang";
             let typeNangResult = typeNang.replace(typeNang.match(/[aeiou]/gi), arr[1].match(/[aeiou]/gi) === null ? "a" : arr[1].match(/[aeiou]/gi));
@@ -38,7 +38,7 @@ export const convertWord = (tmp, setValue, type) => {
             } else {
                 resultConvert += "u" + finalResult + arr[0] + typeNangResult;
             }
-            console.log(finalResult, arr[0], "<==", typeNangResult);
+            // console.log(resultConvert, finalResult, typeNang, typeNangResult, arr);
         } else {
             for (let i = 0; i <= convertNonVocalAlpha.length; i++) {
                 for (let j = 0; j <= 0; j++) {
