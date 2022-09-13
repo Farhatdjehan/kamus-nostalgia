@@ -46,19 +46,68 @@ const MainScreen = () => {
         let tmp = e.target.value;
 
         setOriginalText(tmp);
-
         if (tmp !== '') {
-            convertWord(tmp, setText, languangeType);
+            if (languangeType == "u") {
+
+                // let convertNonVocalAlpha = tmp.split(/[aeiou]/gi);
+                let convertVocalAlpha = tmp.match(/[aeiou]/gi);
+                let resultConvert;
+                let arr;
+                // for()
+                // for (let i = 0; i <= convertVocalAlpha.length; i++) {
+                arr = new Array(tmp.slice(0, tmp.length / convertVocalAlpha.length), tmp.slice(tmp.length / convertVocalAlpha.length, tmp.length));
+                // let test = arr[1].replace(arr[1].indexOf(arr[1].match(/[aeiou]/gi)));
+
+                let finalResult = arr[1].replace(arr[1].match(/[aeiou]/gi), "a");
+                console.log(test);
+                resultConvert += "u" + finalResult + arr[0] + "nang";
+                console.log(arr, resultConvert.split('undefined'));
+                // }
+                // console.log(resultConvert.split('undefined'), tmp);
+                // console.log(convertNonVocalAlpha, convertVocalAlpha);
+
+                // if (convertVocalAlpha === undefined || convertVocalAlpha === null) {
+                //     resultConvert += tmp;
+                // } else {
+                //     for (let i = 0; i <= convertNonVocalAlpha.length; i++) {
+                //         for (let j = 0; j <= 0; j++) {
+                //             resultConvert +=
+                //                 languangeType + convertNonVocalAlpha[1] + 'a' + convertNonVocalAlpha[0] + convertVocalAlpha[0] + 'nang';
+
+                //         }
+                //     }
+                // }
+            } else {
+                convertWord(tmp, setText, languangeType);
+            }
+            // let convertNonVocalAlpha = tmp.split(/[aeiou]/gi);
+            // let convertVocalAlpha = tmp.match(/[aeiou]/gi);
+            // let resultConvert;
+
+            // if (convertVocalAlpha === undefined || convertVocalAlpha === null) {
+            //     resultConvert += tmp;
+            // } else {
+            //     for (let i = 0; i <= convertNonVocalAlpha.length; i++) {
+            //         for (let j = 0; j <= 0; j++) {
+            //             resultConvert +=
+            //                 convertNonVocalAlpha[i] +
+            //                 convertVocalAlpha[i] +
+            //                 languangeType +
+            //                 convertVocalAlpha[i];
+            //         }
+            //     }
+            // }
+            // setText(resultConvert.split('undefined'));
         } else {
             setText();
         }
     }
     const handleSelect = (e) => {
-        if (e.target.id == "3" || e.target.id == "") {
-            setIndexSelected(0);
-        } else {
-            setIndexSelected(e.target.id);
-        }
+        // if (e.target.id == "3" || e.target.id == "") {
+        //     setIndexSelected(0);
+        // } else {
+        setIndexSelected(e.target.id);
+        // }
 
     }
     const handleCopy = (value) => {
@@ -91,11 +140,8 @@ const MainScreen = () => {
                         {convertWordList.map((item, index) => {
                             return (
                                 <>
-                                    <div id={index} key={index} onClick={handleSelect} className={`${convertWordList.length === index + 1 && 'coming-soon_btn'} main-screen__selector-input ${indexSelected == index && convertWordList.length !== index + 1 && 'main-screen__active'}`}>
+                                    <div id={index} key={index} onClick={handleSelect} className={` main-screen__selector-input ${indexSelected == index && 'main-screen__active'}`}>
                                         {item}
-                                        {convertWordList?.length === index + 1 &&
-                                            <span className="coming-soon__label">SEGERA!</span>
-                                        }
                                     </div>
                                 </>
                             )
