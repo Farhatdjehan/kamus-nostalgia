@@ -1,8 +1,9 @@
 
 import ReactGA from "react-ga";
 
+const gaTrackingID = "G-VRQXV82CTZ";
 
-const gaTrackingID = "UA-241007240-1";
+
 
 export function googleAnalytics() {
     // send to google analytics

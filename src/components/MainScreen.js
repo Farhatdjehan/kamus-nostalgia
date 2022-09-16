@@ -52,12 +52,7 @@ const MainScreen = () => {
         // }
 
     }
-    const handleCopy = (value) => {
-        navigator.clipboard.writeText(value);
-        let elementToast = document.getElementsByClassName("main-screen__toast");
-        elementToast[0].style.display = "block";
-        setTimeout(function () { elementToast[0].style.display = elementToast[0].style.display = "none"; }, 2000);
-    }
+    
     const handleReset = () => {
         let reset = document.getElementById('input');
         reset.value = "";
@@ -103,7 +98,6 @@ const MainScreen = () => {
                         onCopy={() => setCopied(true)}>
                         <button className="main-screen__button">Salin</button>
                     </CopyToClipboard>
-
                 </div>
                 {copied &&
                     <div className="main-screen__toast">
