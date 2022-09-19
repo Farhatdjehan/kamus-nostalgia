@@ -29,17 +29,32 @@ export const convertWord = (tmp, setValue, type) => {
         resultConvert += tmp;
     } else {
         if (type == "u") {
-            let arr;
-            arr = new Array(tmp.slice(0, Math.round(tmp.length / convertVocalAlpha.length)), tmp.slice(Math.round(tmp.length / convertVocalAlpha.length), tmp.length));
-            let finalResult = arr[1].replace(arr[1].match(/[aeiou]/gi), "a");
-            let typeNang = "nang";
-            let typeNangResult = typeNang.replace(typeNang.match(/[aeiou]/gi), arr[1].match(/[aeiou]/gi) === null ? "a" : arr[1].match(/[aeiou]/gi));
-            if (tmp.length < 4) {
-                resultConvert += "u" + tmp.replace(tmp.match(/[aeiou]/gi), "a") + typeNang.replace(typeNang.match(/[aeiou]/gi), tmp.match(/[aeiou]/gi));
-            } else {
-                resultConvert += "u" + finalResult + arr[0] + typeNangResult;
+
+            const syllableRegex = /[^aeiouy]*[aeiouy]+(?:[^aeiouy]*$|[^aeiouy](?=[^aeiouy]))?/gi;
+
+            function syllabify(words) {
+                return words.match(syllableRegex);
             }
-            // console.log(resultConvert, finalResult, typeNang, typeNangResult, arr);
+
+            let syllabelWord = syllabify(tmp);
+
+            console.log(syllabelWord);
+
+            let firstConvert = syllabelWord[1]?.replace(syllabelWord[1].match(/[aeiou]/gi), "a");
+            let nang = "nang";
+            let nangConvert = nang?.replace(nang?.match(/[aeiou]/gi), syllabelWord[1]?.match(/[aeiou]/gi) === null ? "a" : syllabelWord[1]?.match(/[aeiou]/gi));
+
+            if (syllabelWord?.length === 2) {
+                resultConvert += type + firstConvert + syllabelWord[0] + nangConvert;
+            } else if (syllabelWord?.length > 2 && !syllabelWord.includes("nya")) {
+                resultConvert += type + firstConvert + syllabelWord[2] + syllabelWord[0] + nangConvert;
+            } else if (syllabelWord.includes("nya") && syllabelWord?.length > 3) {
+                resultConvert += type + syllabelWord[2] + syllabelWord[0] + syllabelWord[1] + nang + syllabelWord[3];
+            } else if (syllabelWord.includes("nya") && syllabelWord?.length === 3) {
+                resultConvert += type + syllabelWord[1] + syllabelWord[0] + nang + syllabelWord[3];
+            }
+            console.log(resultConvert, syllabelWord);
+
         } else {
             for (let i = 0; i <= convertNonVocalAlpha.length; i++) {
                 for (let j = 0; j <= 0; j++) {

@@ -14,17 +14,11 @@ const MainScreen = () => {
 
     useEffect(() => {
         setLanguangeType(convertWordList[indexSelected]?.toLowerCase());
-    }, [indexSelected])
-
-    useEffect(() => {
-        console.log(text);
-    }, [text])
+    }, [indexSelected]);
 
     useEffect(() => {
         if (text) {
-
             convertWord(originalText, setText, languangeType);
-
         }
     }, [indexSelected, originalText, languangeType]);
 
@@ -59,7 +53,7 @@ const MainScreen = () => {
         setText();
     }
     return (
-        <div className="main-screen__dictionary">
+        <div id="kamnos" className="main-screen__dictionary">
             <div className="main-screen__container">
                 <div className="main-screen__title">
                     Kamnos
