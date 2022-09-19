@@ -38,8 +38,6 @@ export const convertWord = (tmp, setValue, type) => {
 
             let syllabelWord = syllabify(tmp);
 
-            console.log(syllabelWord);
-
             let firstConvert = syllabelWord[1]?.replace(syllabelWord[1].match(/[aeiou]/gi), "a");
             let nang = "nang";
             let nangConvert = nang?.replace(nang?.match(/[aeiou]/gi), syllabelWord[1]?.match(/[aeiou]/gi) === null ? "a" : syllabelWord[1]?.match(/[aeiou]/gi));
