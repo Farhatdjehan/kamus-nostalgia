@@ -10,6 +10,7 @@ const MainScreen = () => {
     const [originalText, setOriginalText] = useState();
     const [copied, setCopied] = useState(false);
     const [indexSelected, setIndexSelected] = useState(0);
+    const [keyValue, setKeyValue] = useState(0);
     const [languangeType, setLanguangeType] = useState();
 
     useEffect(() => {
@@ -26,7 +27,17 @@ const MainScreen = () => {
         if (copied) {
             setTimeout(function () { setCopied(false) }, 2000);
         }
-    }, [copied])
+    }, [copied]);
+
+    
+    useEffect(() => {
+        let kamnos = document.querySelectorAll("#kamnos");
+        setTimeout(() => {
+            if (kamnos.length > 0) {
+                setKeyValue(keyValue + 1);
+            }
+        }, 1000);
+    }, []);
 
     const handleChange = (e) => {
         let tmp = e.target.value;
@@ -39,21 +50,18 @@ const MainScreen = () => {
         }
     }
     const handleSelect = (e) => {
-        // if (e.target.id == "3" || e.target.id == "") {
-        //     setIndexSelected(0);
-        // } else {
         setIndexSelected(e.target.id);
-        // }
-
     }
-    
+
     const handleReset = () => {
         let reset = document.getElementById('input');
         reset.value = "";
         setText();
     }
+
+
     return (
-        <div id="kamnos" className="main-screen__dictionary">
+        <div key={keyValue} id="kamnos" className="main-screen__dictionary">
             <div className="main-screen__container">
                 <div className="main-screen__title">
                     Kamnos
