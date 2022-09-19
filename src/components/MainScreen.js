@@ -1,7 +1,6 @@
 /* eslint-disable */
 import React, { useEffect, useState } from "react";
 import { convertWord } from "../helpers/common";
-import './../styles/MainScreen.css';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const MainScreen = () => {
