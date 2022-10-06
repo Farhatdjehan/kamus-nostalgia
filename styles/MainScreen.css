@@ -102,9 +102,25 @@ body {
   display: flex;
   flex-direction: column;
 }
+.main-screen__result-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
 .main-screen__result-label {
   font-weight: bolder;
-  margin-bottom: 16px;
+}
+.main-screen__result-reverse {
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 4px 8px;
+  color: #000;
+}
+.active-reverse {
+  background-color: #be2239;
+  border-radius: 6px;
+  color: #fff;
 }
 .main-screen__result-convert {
   padding: 16px;
@@ -124,6 +140,9 @@ body {
   color: #fff;
   font-weight: 600;
   background-color: #be2239;
+}
+.spacing {
+  margin-right: 8px;
 }
 .main-screen__toast {
   position: absolute;

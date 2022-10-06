@@ -2,19 +2,28 @@
 import React, { useEffect, useState } from "react";
 import { convertWord } from "../helpers/common";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import Image from "next/image";
+import swap from './../../public/swap.png';
+import swapWhite from './../../public/swap_white.png';
 
 const MainScreen = () => {
     const convertWordList = ["G", "S", "P", "U"];
     const [text, setText] = useState();
     const [originalText, setOriginalText] = useState();
     const [copied, setCopied] = useState(false);
+    const [reverseShow, setReverseShow] = useState(false);
     const [indexSelected, setIndexSelected] = useState(0);
+    const [reverse, setReverse] = useState();
     const [keyValue, setKeyValue] = useState(0);
     const [languangeType, setLanguangeType] = useState();
 
     useEffect(() => {
         setLanguangeType(convertWordList[indexSelected]?.toLowerCase());
     }, [indexSelected]);
+
+    useEffect(() => {
+        console.log(reverse);
+    }, [reverse]);
 
     useEffect(() => {
         if (text) {
@@ -28,7 +37,6 @@ const MainScreen = () => {
         }
     }, [copied]);
 
-    
     useEffect(() => {
         let kamnos = document.querySelectorAll("#kamnos");
         setTimeout(() => {
@@ -40,12 +48,39 @@ const MainScreen = () => {
 
     const handleChange = (e) => {
         let tmp = e.target.value;
+        if (reverseShow && languangeType !== "u") {
+            if (tmp !== '') {
+                let tmpReverse = tmp;
+                let resultConvert;
 
-        setOriginalText(tmp);
-        if (tmp !== '') {
-            convertWord(tmp, setText, languangeType);
+                let convertNonVocalAlpha = tmpReverse.split(/[aeiou]/gi);
+                let convertVocalAlpha = tmpReverse.match(/[aeiou]/gi);
+
+                if (convertVocalAlpha === undefined || convertVocalAlpha === null) {
+                    resultConvert += tmpReverse;
+                } else {
+                    for (let i = 0; i <= convertNonVocalAlpha.length; i += 2) {
+                        for (let j = 0; j <= 0; j++) {
+                            resultConvert +=
+                                convertNonVocalAlpha[i] +
+                                convertVocalAlpha[i]
+
+                        }
+                    }
+                    let final = resultConvert?.split('NaN');
+                    let resultFinal = final[0].split("undefined");
+                    setReverse(resultFinal);
+                }
+            } else {
+                setReverse();
+            }
         } else {
-            setText();
+            setOriginalText(tmp);
+            if (tmp !== '') {
+                convertWord(tmp, setText, languangeType);
+            } else {
+                setText();
+            }
         }
     }
     const handleSelect = (e) => {
@@ -58,6 +93,12 @@ const MainScreen = () => {
         setText();
     }
 
+    const reverseWord = () => {
+        let reset = document.getElementById('input');
+        reset.value = "";
+        setReverseShow(!reverseShow);
+        setText();
+    }
 
     return (
         <div key={keyValue} id="kamnos" className="main-screen__dictionary">
@@ -88,13 +129,22 @@ const MainScreen = () => {
                 </div>
             </div>
             <div className="main-screen__result">
-                <div className="main-screen__result-label">
-                    Hasil :
+                <div className="main-screen__result-wrapper">
+                    <div className="main-screen__result-label">
+                        Hasil :
+                    </div>
+                    {languangeType !== "u" &&
+                        <div className={`main-screen__result-reverse ${reverseShow && 'active-reverse'}`} onClick={reverseWord}>
+                            Reverse{"  "}
+                            {reverseShow ? <Image src={swapWhite} width={18} height={8} /> : <Image src={swap} width={18} height={8} />}
+                        </div>
+                    }
                 </div>
                 <div className="main-screen__result-convert">
-                    {text && text[1]}
+                    {reverseShow ? reverse && reverse[1] : text && text[1]}
                 </div>
                 <div className="main-screen__copy">
+
                     <CopyToClipboard text={text && text[1]}
                         onCopy={() => setCopied(true)}>
                         <button className="main-screen__button">Salin</button>

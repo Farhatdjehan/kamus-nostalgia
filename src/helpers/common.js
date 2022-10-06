@@ -51,7 +51,6 @@ export const convertWord = (tmp, setValue, type) => {
             } else if (syllabelWord.includes("nya") && syllabelWord?.length === 3) {
                 resultConvert += type + syllabelWord[1] + syllabelWord[0] + nang + syllabelWord[3];
             }
-            console.log(resultConvert, syllabelWord);
 
         } else {
             for (let i = 0; i <= convertNonVocalAlpha.length; i++) {
@@ -61,7 +60,10 @@ export const convertWord = (tmp, setValue, type) => {
                         convertVocalAlpha[i] +
                         type +
                         convertVocalAlpha[i];
+                    // console.log(resultConvert);
                 }
+                // console.log(resultConvert);
+
             }
         }
     }
